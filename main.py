@@ -2,12 +2,22 @@ import math
 import tkinter.messagebox # type: ignore
 from tkinter import *
 
-#Below is the first part of the project , making the base GUI. In this , I will also create the functions to be used. For now , a basic GUI will be made to work for the limited set of functions available as of now , in the future it will be expanded upon.
-switch = None
+switch = False
 win = Tk()
 win.geometry("650x400+300+300")
 #define resolution
 win.title('pyCalc')
+
+colour = '#f38ba8'
+
+def angle(switch, colour):
+    if switch == False:
+        switch == True
+        colour = '#f38ba8'
+    else:
+        switch == False
+        colour = '#89b4fa'
+
 
 def btn1():
     #This function adds a number to the textbox.
@@ -96,6 +106,8 @@ def sin():
         ans=float(textbox.get())
         if switch == True:
             ans=math.sin(math.radians(ans))
+            textbox.delete(0,END)
+            textbox.insert(0, str(ans))
         else:
             ans=math.sin(ans)
             textbox.delete(0,END)
@@ -108,6 +120,8 @@ def cos():
         ans=float(textbox.get())
         if switch == True:
             ans=math.cos(math.radians(ans))
+            textbox.delete(0,END)
+            textbox.insert(0, str(ans))
         else:
             ans=math.cos(ans)
             textbox.delete(0,END)
@@ -120,6 +134,8 @@ def tan():
         ans=float(textbox.get())
         if switch == True:
             ans=math.tan(math.radians(ans))
+            textbox.delete(0,END)
+            textbox.insert(0, str(ans))
         else:
             ans=math.tan(ans)
             textbox.delete(0,END)
@@ -131,19 +147,23 @@ def asin():
     try:
         ans=float(textbox.get())
         if switch == True:
-            ans=math.asin(math.radians(ans))
+            ans=math.degrees(math.asin(ans))
+            textbox.delete(0,END)
+            textbox.insert(0, str(ans))
         else:
             ans=math.asin(ans)
             textbox.delete(0,END)
             textbox.insert(0, str(ans))
     except Exception:
-        tkinter.messagebox("Error , check operand and operation")
+        tkinter.messagebox.showerror("Error , check operand and operation")
 
 def acos():
     try:
         ans=float(textbox.get())
         if switch == True:
-            ans=math.acos(math.radians(ans))
+            ans=math.degrees(math.acos(ans))
+            textbox.delete(0,END)
+            textbox.insert(0, str(ans))
         else:
             ans=math.acos(ans)
             textbox.delete(0,END)
@@ -155,7 +175,9 @@ def atan():
     try:
         ans=float(textbox.get())
         if switch == True:
-            ans=math.atan(math.radians(ans))
+            ans=math.degrees(math.atan(ans))
+            textbox.delete(0,END)
+            textbox.insert(0, str(ans))
         else:
             ans=math.atan(ans)
             textbox.delete(0,END)
@@ -214,6 +236,6 @@ dividebtn=Button(row4,text="/",font="Arial 23",relief="groove", command=btndiv,f
 clearbtn=Button(row4,text="AC",font="Arial 20",relief="groove",fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
 decimalbtn=Button(row4,text=".",font="Arial 20",relief="groove",fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
 placeholder1btn=Button(row4,text="n/a",font="Arial 20",relief="groove",fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-placerholder2btn=Button(row4,text="n/a",font="Arial 20",relief="groove",fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+switcheroooo=Button(row4,text="Angle",font="Arial 20", command=angle, relief="groove",fg="white",bg=colour).pack(side=LEFT, expand=TRUE, fill=BOTH)
 
 win.mainloop()
