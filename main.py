@@ -3,21 +3,13 @@ import tkinter.messagebox # type: ignore
 from tkinter import *
 
 switch = False
+#this will be used in order to switch radians and degrees mode
 win = Tk()
+#this makes a window
 win.geometry("650x400+300+300")
 #define resolution
 win.title('pyCalc')
-
-colour = '#f38ba8'
-
-def angle(switch, colour):
-    if switch == False:
-        switch == True
-        colour = '#f38ba8'
-    else:
-        switch == False
-        colour = '#89b4fa'
-
+#define window title
 
 def btn1():
     #This function adds a number to the textbox.
@@ -185,6 +177,21 @@ def atan():
     except Exception:
         tkinter.messagebox.showerror("Error , check operand and operation")
 
+def pi():
+    if textbox.get() =='0':
+        textbox.delete(0,END)
+        position=len(textbox.get())
+        textbox.insert(position,'2')
+
+def ac():
+    textbox.delete(0,END)
+    textbox.insert(0, '0')
+
+def equals():
+    ans = eval(textbox.get())
+    newans=(eval(textbox.get()))
+    textbox.delete(0, END)
+    textbox.insert(0, str(newans))
 
 textbox = Entry(win,font='Arial 20',fg="Black",bg="#cdd6f4",bd=4,justify=RIGHT)
 textbox.insert(0, '0')
@@ -212,7 +219,7 @@ minusbtn=Button(row2,text="-",font="Arial 22",relief="groove", command=btnsub,fg
 arcsinbtn=Button(row2,text="sin-1",font="Arial 10 bold",relief="groove", command=asin,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
 arccosbtn=Button(row2,text="cos-1",font="Arial 10 bold",relief="groove", command=acos,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
 arctanbtn=Button(row2,text="tan-1",font="Arial 10 bold",relief="groove", command=atan,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-pibtn=Button(row2,text="π",font="Arial 18",relief="groove",fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+pibtn=Button(row2,text="π",font="Arial 18",relief="groove", command=pi,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
 factbtn=Button(row2,text="x!",font="Arial 18",relief="groove",fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
 
 row3=Frame(win,bg="#1e1e2e")
@@ -231,11 +238,11 @@ row4=Frame(win,bg="#1e1e2e")
 row4.pack(expand=TRUE, fill=BOTH)
 backbtn=Button(row4,text="⌫",font="Arial 15",relief="groove",fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
 zerobtn=Button(row4,text="0",font="Arial 23",relief="groove", command=btn0,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-equalsbtn=Button(row4,text="=",font="Arial 11 bold",relief="groove",fg="white",bg='#89b4fa').pack(side=LEFT, expand=TRUE, fill=BOTH)
+equalsbtn=Button(row4,text="=",font="Arial 11 bold",relief="groove", command=equals, fg="white",bg='#89b4fa').pack(side=LEFT, expand=TRUE, fill=BOTH)
 dividebtn=Button(row4,text="/",font="Arial 23",relief="groove", command=btndiv,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-clearbtn=Button(row4,text="AC",font="Arial 20",relief="groove",fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
+clearbtn=Button(row4,text="AC",font="Arial 20",relief="groove", command=ac,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
 decimalbtn=Button(row4,text=".",font="Arial 20",relief="groove",fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
 placeholder1btn=Button(row4,text="n/a",font="Arial 20",relief="groove",fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-switcheroooo=Button(row4,text="Angle",font="Arial 20", command=angle, relief="groove",fg="white",bg=colour).pack(side=LEFT, expand=TRUE, fill=BOTH)
+switcheroooo=Button(row4,text="n/a",font="Arial 20", relief="groove",fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
 
 win.mainloop()
