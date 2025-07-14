@@ -11,6 +11,11 @@ win.geometry("650x400+300+300")
 win.title('pyCalc')
 #define window title
 
+if switch == False:
+    switchdisp = 'Rad'
+else:
+    switchdisp = 'Deg'
+
 def btn1():
     #This function adds a number to the textbox.
     if textbox.get() =='0':
@@ -313,9 +318,6 @@ def fact():
         tkinter.messagebox.showerror("Error , check operand and operation")
     #If the textbox is not in integer form , or is a negative number , this error is reported.
 
-
-
-
 textbox = Entry(win,font='Arial 20',fg="Black",bg="#cdd6f4",bd=4,justify=RIGHT)
 #This is where the textbox itself is created , I used Arial font and black foreground for black text. The background colour has been chosen from a colorscheme online (Catppuccin mocha)
 textbox.insert(0, '0')
@@ -323,55 +325,104 @@ textbox.insert(0, '0')
 textbox.pack(expand=TRUE, fill=BOTH)
 #This makes a textbox , which will afterwards be the answer box.
 
+def angleswitcher():
+    global switch
+    if switch is False:
+        switch = True
+        degrad['text'] = "Deg"
+    #If the switch is false , we set it to true and we change the switch button display to Deg.
+    else:
+        switch = False
+        degrad['text'] = "Rad"
+    #If the switch is not False , we set it to false and make the text Rad.
+
+def euler():
+    #This function adds a number to the textbox.
+    if textbox.get() =='0':
+        textbox.delete(0,END)
+    #The above if function checks if the textbox contains only 0 , which is the base value. If so , it'll delete the 0 before inputting the number.
+    position=len(textbox.get())
+    eulerstr = 'e'
+    #Here a string called eulerstr is made to hold eulers number , so that it can be put in the textbox (next line) , more on the first line outside of this function.
+    textbox.insert(position,str(eulerstr))
+
+e = math.e
+#Here the euler constant symbol is used as a variable to hold the actual euler constant value. Hence , when used in eval function , it is interpreted as a variable and the euler value is used for calculation , whilst euler symbol is on the textbox.
+
+def ln():
+    try:
+        ans=float(textbox.get())
+        ans=math.log(ans)
+        textbox.delete(0,END)
+        textbox.insert(0,ans)
+    #As stated earlier , try is used here so that the computer can verify that the value supplied has an an actual value on the sine graph.
+    except Exception:
+        tkinter.messagebox.showerror("Error , check operand and operation")
+    #An error is hence printed in the exception , so that the user is made aware that the input/operation is invalid.
+
+def log():
+    try:
+        ans=float(textbox.get())
+        ans=math.log(ans, 10)
+        textbox.delete(0,END)
+        textbox.insert(0,ans)
+    #As stated earlier , try is used here so that the computer can verify that the value supplied has an an actual value on the sine graph.
+    except Exception:
+        tkinter.messagebox.showerror("Error , check operand and operation")
+    #An error is hence printed in the exception , so that the user is made aware that the input/operation is invalid.
+
+
+
 #All the following blocks of code are in the same format. The first line makes a row , which is just a frame in the window. The row is made expandable , and buttons are all added to the row to make actual buttons for the calculator.
 
 row1=Frame(win,bg="#1e1e2e")
 row1.pack(expand=TRUE, fill=BOTH)
-onebtn=Button(row1,text="1",font="Arial 23",relief="groove", command=btn1, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
-twobtn=Button(row1,text="2",font="Arial 23",relief="groove", command=btn2,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-threebtn=Button(row1,text="3",font="Arial 23",relief="groove", command=btn3,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-plusbtn=Button(row1,text="+",font="Arial 23",relief="groove", command=btnplus,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-sinbtn=Button(row1,text="sin",font="Arial 18",relief="groove", command=sin,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-cosbtn=Button(row1,text="cos",font="Arial 18",relief="groove", command=cos,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-tanbtn=Button(row1,text="tan",font="Arial 18",relief="groove", command=tan,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-openbtn=Button(row1,text="(",font="Arial 18",relief="groove", command=open_parentheses, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-closebtn=Button(row1,text=")",font="Arial 18",relief="groove", command=closing_parentheses, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+onebtn=Button(row1,text="1",font="Arial 23",relief="groove",bd=0, command=btn1, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
+twobtn=Button(row1,text="2",font="Arial 23",relief="groove",bd=0, command=btn2,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+threebtn=Button(row1,text="3",font="Arial 23",relief="groove",bd=0, command=btn3,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+plusbtn=Button(row1,text="+",font="Arial 23",relief="groove",bd=0, command=btnplus,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+sinbtn=Button(row1,text="sin",font="Arial 18",relief="groove",bd=0, command=sin,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+cosbtn=Button(row1,text="cos",font="Arial 18",relief="groove",bd=0, command=cos,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+tanbtn=Button(row1,text="tan",font="Arial 18",relief="groove",bd=0, command=tan,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+openbtn=Button(row1,text="(",font="Arial 18",relief="groove",bd=0, command=open_parentheses, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+closebtn=Button(row1,text=")",font="Arial 18",relief="groove",bd=0, command=closing_parentheses, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
 
 row2=Frame(win,bg="#1e1e2e")
 row2.pack(expand=TRUE, fill=BOTH)
-fourbtn=Button(row2,text="4",font="Arial 22",relief="groove", command=btn4,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
-fivebtn=Button(row2,text="5",font="Arial 22",relief="groove", command=btn5,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-sixbtn=Button(row2,text="6",font="Arial 22",relief="groove", command=btn6,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-minusbtn=Button(row2,text="-",font="Arial 22",relief="groove", command=btnsub,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-arcsinbtn=Button(row2,text="sin-1",font="Arial 10 bold",relief="groove", command=asin,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-arccosbtn=Button(row2,text="cos-1",font="Arial 10 bold",relief="groove", command=acos,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-arctanbtn=Button(row2,text="tan-1",font="Arial 10 bold",relief="groove", command=atan,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-pibtn=Button(row2,text="π",font="Arial 18",relief="groove", command=pi,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-factbtn=Button(row2,text="x!",font="Arial 18",relief="groove", command=fact, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+fourbtn=Button(row2,text="4",font="Arial 22",relief="groove",bd=0, command=btn4,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
+fivebtn=Button(row2,text="5",font="Arial 22",relief="groove",bd=0, command=btn5,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+sixbtn=Button(row2,text="6",font="Arial 22",relief="groove",bd=0, command=btn6,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+minusbtn=Button(row2,text="-",font="Arial 22",relief="groove",bd=0, command=btnsub,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+arcsinbtn=Button(row2,text="sin-1",font="Arial 10 bold",relief="groove",bd=0, command=asin,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+arccosbtn=Button(row2,text="cos-1",font="Arial 10 bold",relief="groove",bd=0, command=acos,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+arctanbtn=Button(row2,text="tan-1",font="Arial 10 bold",relief="groove",bd=0, command=atan,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+pibtn=Button(row2,text="π",font="Arial 18",relief="groove",bd=0, command=pi,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+factbtn=Button(row2,text="x!",font="Arial 18",relief="groove",bd=0, command=fact, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
 
 row3=Frame(win,bg="#1e1e2e")
 row3.pack(expand=TRUE, fill=BOTH)
-sevenbtn=Button(row3,text="7",font="Arial 23", command=btn7,relief="groove",fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
-eightbtn=Button(row3,text="8",font="Arial 23", command=btn8,relief="groove",fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-ninebtn=Button(row3,text="9",font="Arial 23", command=btn9,relief="groove",fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-multiplybtn=Button(row3,text="*",font="Arial 23",relief="groove", command=btnmult,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-sqrbtn=Button(row3,text="x^2",font="Arial 17",relief="groove", command=sqr, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-logbtn=Button(row3,text="log",font="Arial 17",relief="groove",fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-lnbtn=Button(row3,text="ln",font="Arial 17",relief="groove",fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-sqrrootbtn=Button(row3,text="√x",font="Arial 17",relief="groove",fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-pwrbtn=Button(row3,text="x^y",font="Arial 17",relief="groove", command=power, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+sevenbtn=Button(row3,text="7",font="Arial 23", command=btn7,relief="groove",bd=0,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
+eightbtn=Button(row3,text="8",font="Arial 23", command=btn8,relief="groove",bd=0,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+ninebtn=Button(row3,text="9",font="Arial 23", command=btn9,relief="groove",bd=0,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+multiplybtn=Button(row3,text="*",font="Arial 23",relief="groove",bd=0, command=btnmult,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+sqrbtn=Button(row3,text="x^2",font="Arial 17",relief="groove",bd=0, command=sqr, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+logbtn=Button(row3,text="log",font="Arial 17",relief="groove",bd=0,fg="white",command=log,bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+lnbtn=Button(row3,text="ln",font="Arial 17",relief="groove",bd=0,command=ln,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+sqrrootbtn=Button(row3,text="√x",font="Arial 17",relief="groove",bd=0,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+pwrbtn=Button(row3,text="x^y",font="Arial 17",relief="groove",bd=0, command=power, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
 
 row4=Frame(win,bg="#1e1e2e")
 row4.pack(expand=TRUE, fill=BOTH)
-backbtn=Button(row4,text="⌫",font="Arial 15",relief="groove", command=delete, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
-zerobtn=Button(row4,text="0",font="Arial 23",relief="groove", command=btn0,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-equalsbtn=Button(row4,text="=",font="Arial 11 bold",relief="groove", command=equals, fg="white",bg='#89b4fa').pack(side=LEFT, expand=TRUE, fill=BOTH)
-dividebtn=Button(row4,text="/",font="Arial 23",relief="groove", command=btndiv,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-clearbtn=Button(row4,text="AC",font="Arial 20",relief="groove", command=ac,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
-decimalbtn=Button(row4,text=".",font="Arial 20",relief="groove", command=decimal, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
-ebtn=Button(row4,text="e",font="Arial 20",relief="groove",fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-placeholder2btn=Button(row4,text="n/a",font="Arial 20",relief="groove",fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-switcheroooo=Button(row4,text="d/r",font="Arial 20", relief="groove",fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+backbtn=Button(row4,text="⌫",font="Arial 15",relief="groove",bd=0, command=delete, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
+zerobtn=Button(row4,text="0",font="Arial 23",relief="groove",bd=0, command=btn0,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+equalsbtn=Button(row4,text="=",font="Arial 18 bold",relief="groove",bd=0, command=equals, fg="white",bg='#89b4fa').pack(side=LEFT, expand=TRUE, fill=BOTH)
+dividebtn=Button(row4,text="/",font="Arial 23",relief="groove",bd=0, command=btndiv,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+clearbtn=Button(row4,text="AC",font="Arial 20",relief="groove",bd=0, command=ac,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
+decimalbtn=Button(row4,text=".",font="Arial 20",relief="groove",bd=0, command=decimal, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
+ebtn=Button(row4,text="e",font="Arial 20",relief="groove",command=euler,fg="white",bd=0,bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+placeholder2btn=Button(row4,text="n/a",font="Arial 20",relief="groove",bd=0,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+degrad=Button(row4,text="Rad",font="Arial 20", relief="groove",bd=0,command=angleswitcher,fg="white",bg='#1e1e2e')
+degrad.pack(side=LEFT, expand=TRUE, fill=BOTH)
 
 win.mainloop()
 #This is what actually starts the window
