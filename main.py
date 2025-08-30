@@ -16,85 +16,32 @@ if switch == False:
 else:
     switchdisp = 'Deg'
 
-def btn1():
-    #This function adds a number to the textbox.
-    if textbox.get() =='0':
-        textbox.delete(0,END)
-    #The above if function checks if the textbox contains only 0 , which is the base value. If so , it'll delete the 0 before inputting the number.
-    position=len(textbox.get())
-    textbox.insert(position,'1')
-#The other functions regarding numbers are pretty much identical , they all have the same purpose. Hence , they are repeated with little modifications to account for the numbers they represent.
-def btn2():
-    #This function adds a number to the textbox.
-    if textbox.get() =='0':
-        textbox.delete(0,END)
-    #The above if function checks if the textbox contains only 0 , which is the base value. If so , it'll delete the 0 before inputting the number.
-    position=len(textbox.get())
-    textbox.insert(position,'2')
+#Below is an OOP implementation of numbers inside of the UI. Three attributes are made , value (number value) , textbox (the textbox of the calculator).
 
-def btn3():
-    #This function adds a number to the textbox.
-    if textbox.get() =='0':
-        textbox.delete(0,END)
-    #The above if function checks if the textbox contains only 0 , which is the base value. If so , it'll delete the 0 before inputting the number.
-    position=len(textbox.get())
-    textbox.insert(position,'3')
+class NumberButton:
+    def __init__(self, parent, value, textbox):
+        self.value = value
+        self.textbox = textbox
+        self.button = Button(
+            parent,
+            text=str(value),
+            font="Arial 23",
+            relief="groove",
+            bd=0,
+            fg="white",
+            bg="#1e1e2e",
+            command=self.insert_value
+        )
+        self.button.pack(side=LEFT, expand=TRUE, fill=BOTH)
 
-def btn4():
-    #This function adds a number to the textbox.
-    if textbox.get() =='0':
-        textbox.delete(0,END)
-    #The above if function checks if the textbox contains only 0 , which is the base value. If so , it'll delete the 0 before inputting the number.
-    position=len(textbox.get())
-    textbox.insert(position,'4')
+#I have also used 'parent' to ensure that each button will have the same UI properties in tkinter , theyll have the same font and colour.
 
-def btn5():
-    #This function adds a number to the textbox.
-    if textbox.get() =='0':
-        textbox.delete(0,END)
-    #The above if function checks if the textbox contains only 0 , which is the base value. If so , it'll delete the 0 before inputting the number.
-    position=len(textbox.get())
-    textbox.insert(position,'5')
-
-def btn6():
-    #This function adds a number to the textbox.
-    if textbox.get() =='0':
-        textbox.delete(0,END)
-    #The above if function checks if the textbox contains only 0 , which is the base value. If so , it'll delete the 0 before inputting the number.
-    position=len(textbox.get())
-    textbox.insert(position,'6')
-
-def btn7():
-    #This function adds a number to the textbox.
-    if textbox.get() =='0':
-        textbox.delete(0,END)
-    #The above if function checks if the textbox contains only 0 , which is the base value. If so , it'll delete the 0 before inputting the number.
-    position=len(textbox.get())
-    textbox.insert(position,'7')
-
-def btn8():
-    #This function adds a number to the textbox.
-    if textbox.get() =='0':
-        textbox.delete(0,END)
-    #The above if function checks if the textbox contains only 0 , which is the base value. If so , it'll delete the 0 before inputting the number.
-    position=len(textbox.get())
-    textbox.insert(position,'8')
-
-def btn9():
-    #This function adds a number to the textbox.
-    if textbox.get() =='0':
-        textbox.delete(0,END)
-    #The above if function checks if the textbox contains only 0 , which is the base value. If so , it'll delete the 0 before inputting the number.
-    position=len(textbox.get())
-    textbox.insert(position,'9')
-
-def btn0():
-    #This function adds a number to the textbox.
-    if textbox.get() =='0':
-        textbox.delete(0,END)
-    #The above if function checks if the textbox contains only 0 , which is the base value. If so , it'll delete the 0 before inputting the number.
-    position=len(textbox.get())
-    textbox.insert(position,'0')
+    def insert_value(self):
+        if self.textbox.get() == '0':
+            self.textbox.delete(0, END)
+        position = len(self.textbox.get())
+        self.textbox.insert(position, str(self.value))
+#This function actually puts the value inside of the textbox.
 
 #You may have noticed that in the following operation functions , I have ommitted the if statement that deletes the base value of '0'. This is because for an operation , a base value is always needed , so when none is supplied it defaults to using 0.
 
@@ -302,6 +249,12 @@ def sqr():
     textbox.insert(position,'**2')
     #Adds **2 to the end of the textbox. The evaluate function interprets this as ^2.
 
+def sqrrt():
+    position=len(textbox.get())
+    textbox.insert(position,'**(1/2)')
+    #Adds **(1/2) to the end of the textbox. The evaluate function interprets this as ^1/2 . aka sqrrt.
+
+
 def power():
     position=len(textbox.get())
     textbox.insert(position, '**')
@@ -375,54 +328,89 @@ def log():
 
 #All the following blocks of code are in the same format. The first line makes a row , which is just a frame in the window. The row is made expandable , and buttons are all added to the row to make actual buttons for the calculator.
 
+# --- row1 ---
 row1=Frame(win,bg="#1e1e2e")
 row1.pack(expand=TRUE, fill=BOTH)
-onebtn=Button(row1,text="1",font="Arial 23",relief="groove",bd=0, command=btn1, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
-twobtn=Button(row1,text="2",font="Arial 23",relief="groove",bd=0, command=btn2,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-threebtn=Button(row1,text="3",font="Arial 23",relief="groove",bd=0, command=btn3,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-plusbtn=Button(row1,text="+",font="Arial 23",relief="groove",bd=0, command=btnplus,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-sinbtn=Button(row1,text="sin",font="Arial 18",relief="groove",bd=0, command=sin,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-cosbtn=Button(row1,text="cos",font="Arial 18",relief="groove",bd=0, command=cos,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-tanbtn=Button(row1,text="tan",font="Arial 18",relief="groove",bd=0, command=tan,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-openbtn=Button(row1,text="(",font="Arial 18",relief="groove",bd=0, command=open_parentheses, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-closebtn=Button(row1,text=")",font="Arial 18",relief="groove",bd=0, command=closing_parentheses, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+NumberButton(row1, 1, textbox)
+NumberButton(row1, 2, textbox)
+NumberButton(row1, 3, textbox)
 
+# Operator + Trig buttons using iteration
+row1_buttons = [
+    ("+", btnplus, "Arial 23"),
+    ("sin", sin, "Arial 18"),
+    ("cos", cos, "Arial 18"),
+    ("tan", tan, "Arial 18"),
+    ("(", open_parentheses, "Arial 18"),
+    (")", closing_parentheses, "Arial 18"),
+]
+#For each button entry inside of my UI , I have designed each button to be held inside of a list. Each object in the list has 3 properties , the label (button display) , the function (function to be executed) and the font (scaling purposes.)
+
+for label, func, font in row1_buttons:
+    Button(row1, text=label, font=font, relief="groove", bd=0,
+           command=func, fg="white", bg="#1e1e2e").pack(side=LEFT, expand=TRUE, fill=BOTH)
+#This loop loops through each item in the list , iterating as many times as the size of the list is. It fetches the label , function , and font and defines a button in the row containing data from each item.
+
+# --- row2 ---
 row2=Frame(win,bg="#1e1e2e")
 row2.pack(expand=TRUE, fill=BOTH)
-fourbtn=Button(row2,text="4",font="Arial 22",relief="groove",bd=0, command=btn4,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
-fivebtn=Button(row2,text="5",font="Arial 22",relief="groove",bd=0, command=btn5,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-sixbtn=Button(row2,text="6",font="Arial 22",relief="groove",bd=0, command=btn6,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-minusbtn=Button(row2,text="-",font="Arial 22",relief="groove",bd=0, command=btnsub,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-arcsinbtn=Button(row2,text="sin-1",font="Arial 10 bold",relief="groove",bd=0, command=asin,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-arccosbtn=Button(row2,text="cos-1",font="Arial 10 bold",relief="groove",bd=0, command=acos,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-arctanbtn=Button(row2,text="tan-1",font="Arial 10 bold",relief="groove",bd=0, command=atan,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-pibtn=Button(row2,text="π",font="Arial 18",relief="groove",bd=0, command=pi,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-factbtn=Button(row2,text="x!",font="Arial 18",relief="groove",bd=0, command=fact, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+NumberButton(row2, 4, textbox)
+NumberButton(row2, 5, textbox)
+NumberButton(row2, 6, textbox)
 
+row2_buttons = [
+    ("-", btnsub, "Arial 22"),
+    ("sin-1", asin, "Arial 10 bold"),
+    ("cos-1", acos, "Arial 10 bold"),
+    ("tan-1", atan, "Arial 10 bold"),
+    ("π", pi, "Arial 18"),
+    ("x!", fact, "Arial 18"),
+]
+
+for label, func, font in row2_buttons:
+    Button(row2, text=label, font=font, relief="groove", bd=0,
+           command=func, fg="white", bg="#1e1e2e").pack(side=LEFT, expand=TRUE, fill=BOTH)
+
+# --- row3 ---
 row3=Frame(win,bg="#1e1e2e")
 row3.pack(expand=TRUE, fill=BOTH)
-sevenbtn=Button(row3,text="7",font="Arial 23", command=btn7,relief="groove",bd=0,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
-eightbtn=Button(row3,text="8",font="Arial 23", command=btn8,relief="groove",bd=0,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-ninebtn=Button(row3,text="9",font="Arial 23", command=btn9,relief="groove",bd=0,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-multiplybtn=Button(row3,text="*",font="Arial 23",relief="groove",bd=0, command=btnmult,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-sqrbtn=Button(row3,text="x^2",font="Arial 17",relief="groove",bd=0, command=sqr, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-logbtn=Button(row3,text="log",font="Arial 17",relief="groove",bd=0,fg="white",command=log,bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-lnbtn=Button(row3,text="ln",font="Arial 17",relief="groove",bd=0,command=ln,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-sqrrootbtn=Button(row3,text="√x",font="Arial 17",relief="groove",bd=0,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-pwrbtn=Button(row3,text="x^y",font="Arial 17",relief="groove",bd=0, command=power, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+NumberButton(row3, 7, textbox)
+NumberButton(row3, 8, textbox)
+NumberButton(row3, 9, textbox)
 
+row3_buttons = [
+    ("*", btnmult, "Arial 23"),
+    ("x^2", sqr, "Arial 17"),
+    ("log", log, "Arial 17"),
+    ("ln", ln, "Arial 17"),
+    ("√x", sqrrt, "Arial 17"),  # keep None if you haven’t written sqrroot function
+    ("x^y", power, "Arial 17"),
+]
+
+for label, func, font in row3_buttons:
+    Button(row3, text=label, font=font, relief="groove", bd=0,
+           command=func, fg="white", bg="#1e1e2e").pack(side=LEFT, expand=TRUE, fill=BOTH)
+
+# --- row4 ---
 row4=Frame(win,bg="#1e1e2e")
 row4.pack(expand=TRUE, fill=BOTH)
 backbtn=Button(row4,text="⌫",font="Arial 15",relief="groove",bd=0, command=delete, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
-zerobtn=Button(row4,text="0",font="Arial 23",relief="groove",bd=0, command=btn0,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+NumberButton(row4, 0, textbox)
 equalsbtn=Button(row4,text="=",font="Arial 18 bold",relief="groove",bd=0, command=equals, fg="white",bg='#89b4fa').pack(side=LEFT, expand=TRUE, fill=BOTH)
-dividebtn=Button(row4,text="/",font="Arial 23",relief="groove",bd=0, command=btndiv,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-clearbtn=Button(row4,text="AC",font="Arial 20",relief="groove",bd=0, command=ac,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
-decimalbtn=Button(row4,text=".",font="Arial 20",relief="groove",bd=0, command=decimal, fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)    
-ebtn=Button(row4,text="e",font="Arial 20",relief="groove",command=euler,fg="white",bd=0,bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
-placeholder2btn=Button(row4,text="n/a",font="Arial 20",relief="groove",bd=0,fg="white",bg='#1e1e2e').pack(side=LEFT, expand=TRUE, fill=BOTH)
+
+row4_buttons = [
+    ("/", btndiv, "Arial 23"),
+    ("AC", ac, "Arial 20"),
+    (".", decimal, "Arial 20"),
+    ("e", euler, "Arial 20"),
+    ("n/a", None, "Arial 20"), 
+]
+
+for label, func, font in row4_buttons:
+    Button(row4, text=label, font=font, relief="groove", bd=0,
+           command=func, fg="white", bg="#1e1e2e").pack(side=LEFT, expand=TRUE, fill=BOTH)
+
 degrad=Button(row4,text="Rad",font="Arial 20", relief="groove",bd=0,command=angleswitcher,fg="white",bg='#1e1e2e')
 degrad.pack(side=LEFT, expand=TRUE, fill=BOTH)
-
 win.mainloop()
 #This is what actually starts the window
