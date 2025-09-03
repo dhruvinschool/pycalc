@@ -75,45 +75,36 @@ def btndiv():
 #The following 6 functions are all trigonometric functions. You may be thinking 'Why is the try function used..?' This is because of the fact that in trigonometry , values after a certain point are undefined. For instance , arcsin(12) has no value , so we use this to test if an operation can actually be performed.
 
 def sin():
-    try:
-        ans=float(textbox.get())
-        if switch == True:
-            #Switch is what we used at the start to define degree or radians mode , if true its turned from degrees to radians. Unfortunately , due to conversion between degres and radians , some accuracy errors are capable of occuring , however the magnitude of these inconsistincies is relatively minimal , so it should not affect the performand by a large scale. But it is still noteworthy.
-            ans=math.sin(math.radians(ans))
-            #See? We use math.radians(ans) first to actually convert to radians , as the math library's sine function only inputs radians.
-            textbox.delete(0,END)
-            textbox.insert(0, str(ans))
-        else:
-            ans=math.sin(ans)
-            textbox.delete(0,END)
-            textbox.insert(0, str(ans))
+    ans=float(textbox.get())
+    if switch == True:
+        #Switch is what we used at the start to define degree or radians mode , if true its turned from degrees to radians. Unfortunately , due to conversion between degres and radians , some accuracy errors are capable of occuring , however the magnitude of these inconsistincies is relatively minimal , so it should not affect the performand by a large scale. But it is still noteworthy.
+        ans=math.sin(math.radians(ans))
+        #See? We use math.radians(ans) first to actually convert to radians , as the math library's sine function only inputs radians.
+        textbox.delete(0,END)
+        textbox.insert(0, str(ans))
+    else:
+        ans=math.sin(ans)
+        textbox.delete(0,END)
+        textbox.insert(0, str(ans))
     #As stated earlier , try is used here so that the computer can verify that the value supplied has an an actual value on the sine graph.
-    except Exception:
-        tkinter.messagebox.showerror("Error , check operand and operation")
-    #An error is hence printed in the exception , so that the user is made aware that the input/operation is invalid.
 
 def cos():
-    try:
-        ans=float(textbox.get())
-        if switch == True:
-            #Switch is what we used at the start to define degree or radians mode , if true its turned from degrees to radians. Unfortunately , due to conversion between degres and radians , some accuracy errors are capable of occuring , however the magnitude of these inconsistincies is relatively minimal , so it should not affect the performand by a large scale. But it is still noteworthy.
-            ans=math.cos(math.radians(ans))
-            #See? We use math.radians(ans) first to actually convert to radians , as the math library's sine function only inputs radians.
-            textbox.delete(0,END)
-            textbox.insert(0, str(ans))
-        else:
-            ans=math.cos(ans)
-            textbox.delete(0,END)
-            textbox.insert(0, str(ans))
-    #As stated earlier , try is used here so that the computer can verify that the value supplied has an an actual value on the sine graph.
-    except Exception:
-        tkinter.messagebox.showerror("Error , check operand and operation")
-    #An error is hence printed in the exception , so that the user is made aware that the input/operation is invalid.
+    ans=float(textbox.get())
+    if switch == True:
+        #Switch is what we used at the start to define degree or radians mode , if true its turned from degrees to radians. Unfortunately , due to conversion between degres and radians , some accuracy errors are capable of occuring , however the magnitude of these inconsistincies is relatively minimal , so it should not affect the performand by a large scale. But it is still noteworthy.
+        ans=math.cos(math.radians(ans))
+        #See? We use math.radians(ans) first to actually convert to radians , as the math library's sine function only inputs radians.
+        textbox.delete(0,END)
+        textbox.insert(0, str(ans))
+    else:
+        ans=math.cos(ans)
+        textbox.delete(0,END)
+        textbox.insert(0, str(ans))
+#As stated earlier , try is used here so that the computer can verify that the value supplied has an an actual value on the sine graph.
 
 def tan():
-    try:
-        ans=float(textbox.get())
-        if switch == True:
+    ans=float(textbox.get())
+    if switch == True:
             #Switch is what we used at the start to define degree or radians mode , if true its turned from degrees to radians. Unfortunately , due to conversion between degres and radians , some accuracy errors are capable of occuring , however the magnitude of these inconsistincies is relatively minimal , so it should not affect the performand by a large scale. But it is still noteworthy.
             ans=math.tan(math.radians(ans))
             #See? We use math.radians(ans) first to actually convert to radians , as the math library's sine function only inputs radians.
@@ -123,10 +114,6 @@ def tan():
             ans=math.tan(ans)
             textbox.delete(0,END)
             textbox.insert(0, str(ans))
-    #As stated earlier , try is used here so that the computer can verify that the value supplied has an an actual value on the sine graph.
-    except Exception:
-        tkinter.messagebox.showerror("Error , check operand and operation")
-    #An error is hence printed in the exception , so that the user is made aware that the input/operation is invalid.
 
 def asin():
     try:
@@ -143,7 +130,7 @@ def asin():
             textbox.delete(0,END)
             textbox.insert(0, str(ans))
     except Exception:
-        tkinter.messagebox.showerror("Error , check operand and operation")
+        tkinter.messagebox.showerror("Error" , "Error , check operand and operator")
 #An error is hence printed in the exception , so that the user is made aware that the input/operation is invalid.
 #As stated earlier , try is used here so that the computer can verify that the value supplied has an an actual value on the sine graph.
 
@@ -164,7 +151,7 @@ def acos():
             textbox.insert(0, str(ans))
     #As stated earlier , try is used here so that the computer can verify that the value supplied has an an actual value on the sine graph.
     except Exception:
-        tkinter.messagebox.showerror("Error , check operand and operation")
+        tkinter.messagebox.showerror("Error" , "Error , check operand and operator")
     #An error is hence printed in the exception , so that the user is made aware that the input/operation is invalid.
 
 def atan():
@@ -183,7 +170,7 @@ def atan():
             textbox.insert(0, str(ans))
     #As stated earlier , try is used here so that the computer can verify that the value supplied has an an actual value on the sine graph.
     except Exception:
-        tkinter.messagebox.showerror("Error , check operand and operation")
+        tkinter.messagebox.showerror("Error" , "Error , check operand and operator")
     #An error is hence printed in the exception , so that the user is made aware that the input/operation is invalid.
 
 def pi():
@@ -206,12 +193,17 @@ def ac():
     #Now we insert 0 from the starting point of the box.
 
 def equals():
-    ans=(eval(textbox.get()))
-    #The eval function takes the entire textbox as a string and evaluates it if its in mathematical terms
-    textbox.delete(0, END)
-    #The textbox is deleted
-    textbox.insert(0, str(ans))
-    #The answer to the evaluation is inputted into the start of the textbox
+    try:
+        ans=(eval(textbox.get()))
+        #The eval function takes the entire textbox as a string and evaluates it if its in mathematical terms
+        if isinstance(ans,complex):
+            raise ValueError("Complex result not allowed")
+        textbox.delete(0, END)
+        #The textbox is deleted
+        textbox.insert(0, str(ans))
+        #The answer to the evaluation is inputted into the start of the textbox
+    except Exception:
+        tkinter.messagebox.showerror("Error" , "Error , check operand and operator")
 
 def open_parentheses():
     if textbox.get() == '0':
@@ -268,7 +260,7 @@ def fact():
         textbox.insert(0,str(ans))
     #This essentially finds the factorial of the textbox , with the entire textbox being interpreted as a single integer. This is then outputted into the box.
     except Exception:
-        tkinter.messagebox.showerror("Error , check operand and operation")
+        tkinter.messagebox.showerror("Error" , "Error , check operand and operator")
     #If the textbox is not in integer form , or is a negative number , this error is reported.
 
 textbox = Entry(win,font='Arial 20',fg="Black",bg="#cdd6f4",bd=4,justify=RIGHT)
@@ -310,7 +302,7 @@ def ln():
         textbox.insert(0,ans)
     #As stated earlier , try is used here so that the computer can verify that the value supplied has an an actual value on the sine graph.
     except Exception:
-        tkinter.messagebox.showerror("Error , check operand and operation")
+        tkinter.messagebox.showerror("Error" , "Error , check operand and operator")
     #An error is hence printed in the exception , so that the user is made aware that the input/operation is invalid.
 
 def log():
@@ -321,7 +313,7 @@ def log():
         textbox.insert(0,ans)
     #As stated earlier , try is used here so that the computer can verify that the value supplied has an an actual value on the sine graph.
     except Exception:
-        tkinter.messagebox.showerror("Error , check operand and operation")
+        tkinter.messagebox.showerror("Error" , "Error , check operand and operator")
     #An error is hence printed in the exception , so that the user is made aware that the input/operation is invalid.
 
 
