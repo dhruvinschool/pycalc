@@ -105,15 +105,15 @@ def cos():
 def tan():
     ans=float(textbox.get())
     if switch == True:
-            #Switch is what we used at the start to define degree or radians mode , if true its turned from degrees to radians. Unfortunately , due to conversion between degres and radians , some accuracy errors are capable of occuring , however the magnitude of these inconsistincies is relatively minimal , so it should not affect the performand by a large scale. But it is still noteworthy.
-            ans=math.tan(math.radians(ans))
-            #See? We use math.radians(ans) first to actually convert to radians , as the math library's sine function only inputs radians.
-            textbox.delete(0,END)
-            textbox.insert(0, str(ans))
-        else:
-            ans=math.tan(ans)
-            textbox.delete(0,END)
-            textbox.insert(0, str(ans))
+        #Switch is what we used at the start to define degree or radians mode , if true its turned from degrees to radians. Unfortunately , due to conversion between degres and radians , some accuracy errors are capable of occuring , however the magnitude of these inconsistincies is relatively minimal , so it should not affect the performand by a large scale. But it is still noteworthy.
+        ans=math.tan(math.radians(ans))
+        #See? We use math.radians(ans) first to actually convert to radians , as the math library's sine function only inputs radians.
+        textbox.delete(0,END)
+        textbox.insert(0, str(ans))
+    else:
+        ans=math.tan(ans)
+        textbox.delete(0,END)
+        textbox.insert(0, str(ans))
 
 def asin():
     try:
